@@ -1,7 +1,26 @@
 // Answer the following questions:
 
 // Add the plots to your report and explain them (describe what you see)
+
+The plot is located under project/pid_controller/screenshot/Steering.png and Throttle.png
+
+In the steer plot, though the contoller is trying to reduce the steer angle, it always ends up creating a larger error in the opposite direction. This might because of the scripts are lack of car kinematic model (e.g. bicycle model).
+
+In the throttle plot, the error converge to the constant after a certain time. Though the error never reduces to near zero
+
 // What is the effect of the PID according to the plots, how each part of the PID affects the control command?
+
+The proportional term acts linearly to reduce the error. The integral term reduces the steady state error overtime to make sure the error decreases. The derivative term reduces the oscillation style of the error curve to make it more smooth. With this being said, increase the derivative term of the throttle could reduce the error gradually. However, the target throttle seems too fast for the steering PID to be correct.
+
 // How would you design a way to automatically tune the PID parameters?
+
+To autmate this process, first we need a cost funciton, which can be the RMSE of the errors and a term that indicates the collision events. Then the optimization approach can be enumeration (test through all reasonable combinations of PID parameters and choose the one with least cost), gradient decent (though hard to prevent local minimum), genetic algorithm.
+
 // PID controller is a model free controller, i.e. it does not use a model of the car. Could you explain the pros and cons of this type of controller?
+
+PROS: It's easier to implement and may work for most cases. 
+CONS: the performance of this type of controller cannot compare with model-based approach regarding the time for PID to get stable either the overall error level.
+
 // (Optional) What would you do to improve the PID controller?
+
+Maybe use a model-based approach instead to take consideration of the speed and direction (steering and throttle) together as a whole.
